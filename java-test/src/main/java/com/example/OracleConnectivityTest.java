@@ -12,7 +12,7 @@ import com.zaxxer.hikari.HikariDataSource;
 public class OracleConnectivityTest {
     
     // Database connection parameters
-    private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521:XEPDB1";
+    private static final String DB_URL = "jdbc:oracle:thin:@localhost:1521/XEPDB1";
     private static final String DB_USER = "app_schema";
     private static final String DB_PASSWORD = "AppSchema123";
     
