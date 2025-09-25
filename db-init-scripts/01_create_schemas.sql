@@ -2,17 +2,17 @@
 -- This script creates sample schemas and tables for development
 
 -- Create development schema and user
-CREATE USER app_schema IDENTIFIED BY AppSchema123
+CREATE USER oracleUser2 IDENTIFIED BY strongPassword123
   DEFAULT TABLESPACE users
   TEMPORARY TABLESPACE temp
   QUOTA UNLIMITED ON users;
 
 -- Grant necessary privileges
-GRANT CONNECT, RESOURCE, CREATE VIEW, CREATE SYNONYM TO app_schema;
-GRANT CREATE TABLE, CREATE SEQUENCE, CREATE TRIGGER TO app_schema;
+GRANT CONNECT, RESOURCE, CREATE VIEW, CREATE SYNONYM TO oracleUser2;
+GRANT CREATE TABLE, CREATE SEQUENCE, CREATE TRIGGER TO oracleUser2;
 
 -- Connect as the new user for subsequent operations
-ALTER SESSION SET CURRENT_SCHEMA = app_schema;
+ALTER SESSION SET CURRENT_SCHEMA = oracleUser2;
 
 -- Create sample tables
 CREATE TABLE departments (

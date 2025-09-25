@@ -34,7 +34,7 @@ Access Adminer: http://localhost:8080
 System: Oracle
 Server: oracle-db:1521/XEPDB1
 Username: app_schema
-Password: AppSchema123
+Password: strongPassword123
 
 ```powershell
 # Watch database startup logs
@@ -50,7 +50,7 @@ docker-compose logs -f oracle-db
 - System: Oracle
 - Server: oracle-db:1521/XEPDB1
 - Username: `app_schema`
-- Password: `AppSchema123`
+- Password: `strongPassword123`
 
 **Oracle Enterprise Manager (Optional):**
 - URL: http://localhost:5500/em
@@ -121,12 +121,12 @@ jdbc:oracle:thin:@localhost:1521:XE
 
 **Go-ora (Go):**
 ```
-oracle://app_schema:AppSchema123@localhost:1521/XE
+oracle://app_schema:strongPassword123@localhost:1521/XE
 ```
 
 **SQL*Plus:**
 ```powershell
-docker exec -it oracle-xe-db sqlplus app_schema/AppSchema123@XEPDB1
+docker exec -it oracle-xe-db sqlplus app_schema/strongPassword123@XEPDB1
 ```
 
 ### User Accounts
@@ -135,7 +135,7 @@ docker exec -it oracle-xe-db sqlplus app_schema/AppSchema123@XEPDB1
 |----------|----------|------|-------------|
 | `sys` | `OraclePassword123` | SYSDBA | System administrator |
 | `system` | `OraclePassword123` | DBA | System user |
-| `app_schema` | `AppSchema123` | Application | Application schema owner |
+| `app_schema` | `strongPassword123` | Application | Application schema owner |
 
 ## 🛠️ Management Commands
 
@@ -163,15 +163,34 @@ docker exec -it oracle-xe-db sqlplus / as sysdba
 ### Database Operations
 
 ```powershell
+docker exec -it oracle-xe-db sqlplus sys/OraclePassword123@XEPDB1 as sysdba
+
+CREATE USER oracleUser IDENTIFIED BY strongPassword123;
+
+GRANT CREATE SESSION TO oracleUser;
+GRANT CREATE TABLE, CREATE VIEW, CREATE SEQUENCE, CREATE PROCEDURE TO oracleUser;
+
+CREATE TABLESPACE oracleDatabase 
+  DATAFILE 'oracleDatabase01.dbf' SIZE 100M AUTOEXTEND ON;
+
+ALTER USER oracleUser DEFAULT TABLESPACE oracleDatabase;
+
 # Connect to database
-docker exec -it oracle-xe-db sqlplus app_schema/AppSchema123@XEPDB1
+docker exec -it oracle-xe-db sqlplus app_schema/strongPassword123@XEPDB1
+docker exec -it oracle-xe-db sqlplus oracleUser/strongPassword123@XEPDB1
+
+docker exec -i oracle-xe-db sqlplus oracleUser/strongPassword123@XEPDB1 < your-script.sql
+
+sqlplus oracleUser/strongPassword123@XEPDB1
 
 # Run SQL script
-docker exec -i oracle-xe-db sqlplus app_schema/AppSchema123@XEPDB1 < your-script.sql
+docker exec -i oracle-xe-db sqlplus app_schema/strongPassword123@XEPDB1 < your-script.sql
 
 # Check database status
 docker exec oracle-xe-db sqlplus -s / as sysdba <<< "SELECT status FROM v\$instance;"
 ```
+
+Get-Content .\02_sample_data.sql | docker exec -i oracle-xe-db sqlplus sys/OraclePassword123@XEPDB1 as sysdba
 
 ## 📁 Project Structure
 

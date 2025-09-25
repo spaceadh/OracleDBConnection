@@ -2,7 +2,7 @@
 -- Insert sample data into the created tables
 
 -- Set the schema context
-ALTER SESSION SET CURRENT_SCHEMA = app_schema;
+ALTER SESSION SET CURRENT_SCHEMA = oracleUser2;
 
 -- Insert sample departments
 INSERT INTO departments (dept_name, location, manager_id) VALUES 

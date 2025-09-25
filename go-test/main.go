@@ -11,7 +11,7 @@ import (
 
 // Database connection parameters
 const (
-	dbURL = "oracle://app_schema:AppSchema123@localhost:1521/XE"
+	dbURL = "oracle://app_schema:AppSchema123@localhost:1521/XEPDB1"
 )
 
 // Employee represents an employee record
