@@ -1,5 +1,11 @@
 -- Create tables and objects for app_schema user
 -- Connect as app_schema
+CREATE USER app_schema IDENTIFIED BY AppSchema123 DEFAULT TABLESPACE users TEMPORARY TABLESPACE temp QUOTA UNLIMITED ON users;
+
+GRANT CONNECT, RESOURCE, CREATE VIEW, CREATE SYNONYM TO app_schema;
+GRANT CREATE TABLE, CREATE SEQUENCE, CREATE TRIGGER TO app_schema;
+GRANT DBA TO app_schema;
+
 CONNECT app_schema/AppSchema123@XEPDB1;
 
 -- Create sample tables

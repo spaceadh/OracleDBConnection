@@ -1,0 +1,15 @@
+-- Create tables and objects for egf_schema user
+-- Connect as egf_schema
+CREATE USER KCBCHAMA IDENTIFIED BY KcbPass2017;
+GRANT create session TO KCBCHAMA; 
+GRANT create table TO KCBCHAMA; 
+GRANT create view TO KCBCHAMA; 
+GRANT create any trigger TO KCBCHAMA; 
+GRANT create any procedure TO KCBCHAMA; GRANT create sequence TO KCBCHAMA; 
+GRANT create synonym TO KCBCHAMA; 
+GRANT UNLIMITED TABLESPACE TO KCBCHAMA;
+GRANT DBA TO KCBCHAMA;
+
+GRANT READ, WRITE ON DIRECTORY IMPORT_DIR TO KCBCHAMA;
+
+CONNECT KCBCHAMA/KcbPass2017@XEPDB1;
