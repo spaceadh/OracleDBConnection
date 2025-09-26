@@ -15,6 +15,7 @@ services:
     volumes:
       - oracle-data:/opt/oracle/oradata
       - ./db-init-scripts:/container-entrypoint-initdb.d
+      - ./db-data:/opt/oracle/import
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "healthcheck.sh"]
