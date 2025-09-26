@@ -1,3 +1,5 @@
+version: '3.8'
+
 services:
   oracle-db:
     image: gvenzl/oracle-xe:21-slim-faststart
@@ -20,23 +22,22 @@ services:
       timeout: 10s
       retries: 5
       start_period: 60s
-  oracle-ords:
-    image: container-registry.oracle.com/database/ords:latest
-    container_name: oracle-ords
-    environment:
-      CONN_STRING: oracle-db:1521/XEPDB1
-      ORACLE_PWD: OraclePassword123
-      ORACLE_USER: sys
-      ORACLE_ROLE: SYSDBA
+  # Web interface - CloudBeaver (DBeaver web interface with Oracle support)
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: oracle-cloudbeaver
     ports:
-      - "8081:8080"
+      - "8080:8978"
+    volumes:
+      - cloudbeaver-data:/opt/cloudbeaver/workspace
     depends_on:
-      oracle-db:
-        condition: service_healthy
+      - oracle-db
     restart: unless-stopped
 
 volumes:
   oracle-data:
+    driver: local
+  cloudbeaver-data:
     driver: local
 
 networks:
