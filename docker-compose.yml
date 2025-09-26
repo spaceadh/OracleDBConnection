@@ -28,7 +28,7 @@ services:
     image: dbeaver/cloudbeaver:latest
     container_name: oracle-cloudbeaver
     ports:
-      - "8080:8978"
+      - "8081:8978"
     volumes:
       - cloudbeaver-data:/opt/cloudbeaver/workspace
     depends_on:

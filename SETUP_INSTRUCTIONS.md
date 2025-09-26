@@ -100,7 +100,7 @@ Get-Content .\db-init-scripts\01_create_app_schema.sql | docker exec -i oracle-x
 
 #### 2.2 Create Sample Tables and Data
 # Load sample data
-Get-Content .\db-init-scripts\02_app_sample_data.sql | docker exec -i oracle-xe-db sqlplus sys/OraclePassword123@XEPDB1 as sysdba
+Get-Content .\db-init-scripts\01_app_sample_data.sql | docker exec -i oracle-xe-db sqlplus sys/OraclePassword123@XEPDB1 as sysdba
 ```
 
 ### Phase 3: Web Interface Setup
